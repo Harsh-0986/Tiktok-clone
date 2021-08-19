@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,7 +24,17 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyBE-U8JXFkAO33aUfizSwdHrsCaLiRxa2Y",
+          "authDomain": "indian-tiktok-f190a.firebaseapp.com",
+          "projectId": "indian-tiktok-f190a",
+          "storageBucket": "indian-tiktok-f190a.appspot.com",
+          "messagingSenderId": "821811855739",
+          "appId": "1:821811855739:web:0c2edd869168655c41fdde"
+        }
+      }
     }
   }
 }
