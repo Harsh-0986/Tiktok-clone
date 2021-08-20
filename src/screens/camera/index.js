@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Platform, SafeAreaView, Text } from "react-native";
+import {
+  Image,
+  Platform,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
@@ -39,10 +45,46 @@ export default function CameraScreen() {
           sortBy: ["creationTime"],
           mediaType: ["video"],
         });
-        setGalleryItems(userGalleryMedia);
+        setGalleryItems(userGalleryMedia.assets);
       }
     })();
   }, []);
+
+  const recordVideo = async () => {
+    if (cameraRef) {
+      try {
+        const options = {
+          maxDuration: 60,
+          quality: Camera.Constants.VideoQuality["480"],
+        };
+        const videoRecordPromise = cameraRef.recordAsync(options);
+        if (videoRecordPromise) {
+          const data = await videoRecordPromise;
+          const source = data.uri;
+          console.log(source);
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+  };
+  const stopVideo = async () => {
+    if (cameraRef) {
+      cameraRef.stopRecording();
+    }
+  };
+
+  pickFromGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      // Pass Video URI to save component
+    }
+  };
 
   if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
     //   console.log(hasCameraPermissions);
@@ -63,6 +105,35 @@ export default function CameraScreen() {
           onCameraReady={() => setIsCameraReady(true)}
         />
       ) : null}
+
+      <SafeAreaView style={styles.bottomBarContainer}>
+        <SafeAreaView style={{ flex: 1 }}></SafeAreaView>
+
+        <SafeAreaView style={styles.recordButtonContainer}>
+          <TouchableOpacity
+            disabled={!isCameraReady}
+            onLongPress={() => recordVideo()}
+            onPressOut={() => stopVideo()}
+            style={styles.recordButton}
+          />
+        </SafeAreaView>
+
+        <SafeAreaView style={{ flex: 1 }}>
+          <TouchableOpacity
+            style={styles.galleryButton}
+            onPress={() => pickFromGallery()}
+          >
+            {galleryItems[0] == undefined ? (
+              <></>
+            ) : (
+              <Image
+                style={styles.galleryButtonImage}
+                source={{ uri: galleryItems[0].uri }}
+              />
+            )}
+          </TouchableOpacity>
+        </SafeAreaView>
+      </SafeAreaView>
     </SafeAreaView>
   );
 }
