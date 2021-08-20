@@ -12,6 +12,7 @@ import * as MediaLibrary from "expo-media-library";
 import { Audio } from "expo-av";
 import { useIsFocused } from "@react-navigation/core";
 import styles from "./styles";
+import { Feather } from "@expo/vector-icons";
 
 export default function CameraScreen() {
   const [hasCameraPermissions, setHasCameraPermissions] = useState(false);
@@ -105,6 +106,35 @@ export default function CameraScreen() {
           onCameraReady={() => setIsCameraReady(true)}
         />
       ) : null}
+
+      <SafeAreaView style={styles.sideBarContainer}>
+        <TouchableOpacity
+          style={styles.sideBarButton}
+          onPress={() =>
+            setCameraType(
+              cameraType === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            )
+          }
+        >
+          <Feather name="refresh-ccw" size={24} color="white" />
+          <Text style={styles.iconText}>Flip Camera</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.sideBarButton}
+          onPress={() =>
+            setCameraFlash(
+              cameraFlash === Camera.Constants.FlashMode.off
+                ? Camera.Constants.FlashMode.torch
+                : Camera.Constants.FlashMode.off
+            )
+          }
+        >
+          <Feather name="zap" size={24} color="white" />
+          <Text style={styles.iconText}>Flash</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
 
       <SafeAreaView style={styles.bottomBarContainer}>
         <SafeAreaView style={{ flex: 1 }}></SafeAreaView>
