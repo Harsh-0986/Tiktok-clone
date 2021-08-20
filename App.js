@@ -12,6 +12,7 @@ import rootReducer from "./src/redux/reducers";
 
 //Screens
 import AuthScreen from "./src/screens/auth";
+import Route from "./src/navigation/main";
 
 // Firebase App initialization
 if (firebase.apps.length == 0) {
@@ -24,16 +25,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 export default function App() {
   return (
     <Provider store={store}>
-      <AuthScreen />
+      <Route />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
