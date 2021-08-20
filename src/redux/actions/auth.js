@@ -21,7 +21,7 @@ export const getCurrentUserData = () => (dispatch) => {
       if (res.exists) {
         return dispatch({
           type: USER_STATE_CHANGE,
-          currentUser: res.data,
+          currentUser: res.data(),
           loaded: true,
         });
       }
