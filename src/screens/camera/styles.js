@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   iconText: {
-    color: white,
+    color: "white",
     fontSize: 12,
     marginTop: 5,
   },

@@ -118,7 +118,7 @@ export default function CameraScreen() {
             )
           }
         >
-          <Feather name="refresh-ccw" size={24} color="white" />
+          <Feather name="refresh-ccw" size={24} color={"white"} />
           <Text style={styles.iconText}>Flip Camera</Text>
         </TouchableOpacity>
         <TouchableOpacity
