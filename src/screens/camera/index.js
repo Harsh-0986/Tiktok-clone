@@ -13,6 +13,7 @@ import { Audio } from "expo-av";
 import { useIsFocused } from "@react-navigation/core";
 import styles from "./styles";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CameraScreen() {
   const [hasCameraPermissions, setHasCameraPermissions] = useState(false);
@@ -30,6 +31,8 @@ export default function CameraScreen() {
   const [isCameraReady, setIsCameraReady] = useState(false);
 
   const isFocused = useIsFocused();
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -62,7 +65,7 @@ export default function CameraScreen() {
         if (videoRecordPromise) {
           const data = await videoRecordPromise;
           const source = data.uri;
-          console.log(source);
+          navigation.navigate("Save", { source: source });
         }
       } catch (error) {
         console.warn(error);
@@ -83,7 +86,7 @@ export default function CameraScreen() {
       quality: 1,
     });
     if (!result.cancelled) {
-      // Pass Video URI to save component
+      navigation.navigate("Save", { source: result.uri });
     }
   };
 

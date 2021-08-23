@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import AuthScreen from "../../screens/auth";
 import HomeScreen from "../home";
+import SavePost from "../../screens/savePosts";
 
 const Stack = createStackNavigator();
 
@@ -28,11 +29,18 @@ export default function Route() {
             options={{ headerShown: false }}
           />
         ) : (
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Save"
+              component={SavePost}
+              options={{ headerShown: false }}
+            />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
