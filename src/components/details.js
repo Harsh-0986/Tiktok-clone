@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import detailStyle from "./detailsStyles";
@@ -43,7 +42,7 @@ export default function AuthDetails({ setDetailsPage, authPage }) {
   };
 
   return (
-    <KeyboardAvoidingView style={detailStyle.container}>
+    <SafeAreaView style={detailStyle.container}>
       <TouchableOpacity onPress={() => setDetailsPage(false)}>
         <Feather name="arrow-left" size={24} color="black" />
       </TouchableOpacity>
@@ -66,6 +65,6 @@ export default function AuthDetails({ setDetailsPage, authPage }) {
           {authPage == 0 ? "Sign In" : "Sign Up"}
         </Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
