@@ -34,6 +34,7 @@ export default function AuthDetails({ setDetailsPage, authPage }) {
         db.collection("user").doc(firebase.auth().currentUser.uid).set({
           email: email,
           emailVerified: firebase.auth().currentUser.emailVerified,
+          displayName: firebase.auth().currentUser.displayName,
         });
       })
       .catch(() => {

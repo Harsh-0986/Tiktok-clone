@@ -17,7 +17,7 @@ export default function Route() {
   useEffect(() => {
     dispatch(userAuthStateListener());
   }, []);
-  console.log(currentUserObj);
+  // console.log(currentUserObj);
 
   return (
     <NavigationContainer>
