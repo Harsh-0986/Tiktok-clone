@@ -1,61 +1,74 @@
+import { StackActions, useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  SafeAreaView,
-  TextInput,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
+  ActivityIndicator,
   Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import styles from "./styles";
-import { TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../redux/actions";
 
-export default function SavePost(props) {
-  const [caption, setCaption] = useState("");
+export default function SavePostScreen(props) {
+  const [description, setDescription] = useState("");
+  const [requestRunning, setRequestRunning] = useState(false);
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  const handleSavePost = () => {
+    setRequestRunning(true);
+    dispatch(createPost(description, props.route.params.source))
+      .then(() => navigation.dispatch(StackActions.popToTop()))
+      .catch(() => setRequestRunning(false));
+  };
+
+  if (requestRunning) {
+    return (
+      <View style={styles.uploadingContainer}>
+        <ActivityIndicator color="red" size="large" />
+      </View>
+    );
+  }
   return (
-    <SafeAreaView style={styles.container}>
-      {/* For Caption and preview */}
+    <View style={styles.container}>
       <View style={styles.formContainer}>
         <TextInput
-          placeholder="Enter a caption"
-          multiline
-          style={styles.caption}
+          style={styles.inputText}
           maxLength={150}
-          onChangeText={(text) => setCaption(text)}
+          multiline
+          onChangeText={(text) => setDescription(text)}
+          placeholder="Describe your video"
         />
         <Image
           style={styles.mediaPreview}
           source={{ uri: props.route.params.source }}
         />
       </View>
-      {/* Spacer */}
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        style={styles.spacer}
-      >
-        <View />
+      <TouchableWithoutFeedback style={styles.spacer}>
+        <View style={styles.spacer} />
       </TouchableWithoutFeedback>
-      {/* For Buttons */}
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonsContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.cancelButton}
         >
-          <Feather name="x" size={24} color="white" />
+          <Feather name="x" size={24} color="black" />
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => handleSavePost()}
           style={styles.postButton}
         >
-          <Feather name="corner-left-up" size={24} color="black" />
+          <Feather name="corner-left-up" size={24} color="white" />
           <Text style={styles.postButtonText}>Post</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
