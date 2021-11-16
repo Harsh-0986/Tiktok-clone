@@ -90,7 +90,7 @@ export default function CameraScreen() {
     });
     if (!result.cancelled) {
       let sourceThumb = await generateThumbnail(result.uri);
-      navigation.navigate("Save", { source: result.uri });
+      navigation.navigate("Save", { source: result.uri, sourceThumb });
     }
   };
 
