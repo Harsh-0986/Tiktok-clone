@@ -45,7 +45,7 @@ export default function HomeScreen() {
             ),
           }}
         />
-      ) : null}
+    ) : null} 
       <Tab.Screen
         name="Inbox"
         component={EmptyScreen}

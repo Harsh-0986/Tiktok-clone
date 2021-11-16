@@ -24,7 +24,7 @@ export default function ProfileHeader({ user }) {
         </View>
       </View>
       <TouchableOpacity style={buttonStyles.grayOutlinedButton}>
-        Edit Profile
+        <Text>Edit Profile</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -4,19 +4,28 @@ require("firebase/firebase-auth");
 require("firebase/firestore");
 import uuid from "uuid-random";
 
-export const createPost = (description, video) => (dispatch) =>
+export const createPost = (description, video, thumbnail) => (dispatch) =>
   new Promise((resolve, reject) => {
-    saveMediaToStorage(
-      video,
-      `post/${firebase.auth().currentUser.uid}/${uuid()}`
-    )
-      .then((downloadUrl) => {
+    let storagePostId = uuid();
+    let allSavePromises = Promise.all([
+      saveMediaToStorage(
+        video,
+        `post/${firebase.auth().currentUser.uid}/${storagePostId}/video`
+      ),
+      saveMediaToStorage(
+        thumbnail,
+        `post/${firebase.auth().currentUser.uid}/${storagePostId}/thumbnail`
+      ),
+    ]);
+
+    allSavePromises
+      .then((media) => {
         firebase
           .firestore()
           .collection("post")
           .add({
             creator: firebase.auth().currentUser.uid,
-            downloadUrl,
+            media,
             description,
             likesCount: 0,
             commentsCount: 0,

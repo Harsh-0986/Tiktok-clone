@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   Image,
+  Keyboard,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -22,9 +24,18 @@ export default function SavePostScreen(props) {
   const dispatch = useDispatch();
   const handleSavePost = () => {
     setRequestRunning(true);
-    dispatch(createPost(description, props.route.params.source))
+    dispatch(
+      createPost(
+        description,
+        props.route.params.source,
+        props.route.params.sourceThumb
+      )
+    )
       .then(() => navigation.dispatch(StackActions.popToTop()))
-      .catch(() => setRequestRunning(false));
+      .catch((error) => {
+        setRequestRunning(false);
+        console.log(error);
+      });
   };
 
   if (requestRunning) {
@@ -34,8 +45,9 @@ export default function SavePostScreen(props) {
       </View>
     );
   }
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.formContainer}>
         <TextInput
           style={styles.inputText}
@@ -49,7 +61,10 @@ export default function SavePostScreen(props) {
           source={{ uri: props.route.params.source }}
         />
       </View>
-      <TouchableWithoutFeedback style={styles.spacer}>
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}
+        style={styles.spacer}
+      >
         <View style={styles.spacer} />
       </TouchableWithoutFeedback>
       <View style={styles.buttonsContainer}>
@@ -69,6 +84,6 @@ export default function SavePostScreen(props) {
           <Text style={styles.postButtonText}>Post</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
