@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
     alignItems: "center",
+    paddingHorizontal: 65,
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
   },
   counterContainer: {
     paddingBottom: 20,

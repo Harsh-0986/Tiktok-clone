@@ -6,7 +6,7 @@ import { buttonStyles } from "../../../styles";
 
 export default function ProfileHeader({ user }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Avatar.Icon size={80} icon={"account"} />
       <Text style={styles.emailText}>{user?.email}</Text>
       <View style={styles.counterContainer}>
@@ -26,6 +26,6 @@ export default function ProfileHeader({ user }) {
       <TouchableOpacity style={buttonStyles.grayOutlinedButton}>
         <Text>Edit Profile</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }
