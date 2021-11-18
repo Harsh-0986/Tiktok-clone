@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AuthScreen from "../../screens/auth";
 import HomeScreen from "../home";
 import SavePost from "../../screens/savePosts";
+import EditProfileScreen from "../../screens/profile/edit";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,11 @@ export default function Route() {
             <Stack.Screen
               name="Save"
               component={SavePost}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Edit Profile"
+              component={EditProfileScreen}
               options={{ headerShown: false }}
             />
           </>
