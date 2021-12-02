@@ -48,11 +48,17 @@ export default function EditProfileScreen() {
       <View style={styles.fieldsContainer}>
         <TouchableOpacity
           style={styles.fieldItemContainer}
-          onPress={() => navigation.navigate("Edit Profile Field")}
+          onPress={() =>
+            navigation.navigate("Edit Profile Field", {
+              title: "Display Name",
+              field: "displayName",
+              value: auth.currentUser.displayName,
+            })
+          }
         >
           <Text>Display name</Text>
           <View style={styles.fieldValueContainer}>
-            <Text> Display Name</Text>
+            <Text>{auth.currentUser.displayName}</Text>
             <Feather name="chevron-right" size={20} color="gray" />
           </View>
         </TouchableOpacity>

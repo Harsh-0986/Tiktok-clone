@@ -19,11 +19,14 @@ export default function GeneralNavbar({
         <Feather name="arrow-left" size={26} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => (rightButton.display ? rightButton.action() : null)}
+      >
         <Feather
-          name="arrow-left"
+          name={rightButton.name}
           size={26}
-          color={rightButton.display ? "black" : "white"}
+          color={rightButton.display ? "pink" : "white"}
         />
       </TouchableOpacity>
     </View>

@@ -16,3 +16,16 @@ export const saveUserProfileImage = (image) =>
         .catch(() => reject());
     });
   });
+
+export const saveUserField = (field, value) =>
+  new Promise((resolve, reject) => {
+    let obj = {};
+    obj[field] = value;
+    firebase
+      .firestore()
+      .collection("user")
+      .doc(firebase.auth().currentUser.uid)
+      .update(obj)
+      .then(() => resolve())
+      .catch(() => reject());
+  });
