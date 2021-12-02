@@ -8,6 +8,7 @@ import AuthScreen from "../../screens/auth";
 import HomeScreen from "../home";
 import SavePost from "../../screens/savePosts";
 import EditProfileScreen from "../../screens/profile/edit";
+import EditProfileFieldScreen from "../../screens/profile/edit/field";
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,11 @@ export default function Route() {
             <Stack.Screen
               name="Edit Profile"
               component={EditProfileScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Edit Profile Field"
+              component={EditProfileFieldScreen}
               options={{ headerShown: false }}
             />
           </>
