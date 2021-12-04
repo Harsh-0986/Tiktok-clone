@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import CameraScreen from "../../screens/camera";
 import Profile from "../../screens/profile";
 import SearchScreen from "../../screens/search";
+import FeedScreen from "../../screens/feed";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -20,7 +21,7 @@ export default function HomeScreen() {
     >
       <Tab.Screen
         name="Feed"
-        component={EmptyScreen}
+        component={FeedScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="home" size={24} color={color} />
