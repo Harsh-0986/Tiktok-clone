@@ -15,6 +15,7 @@ import firebase from "firebase";
 export default function AuthDetails({ setDetailsPage, authPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const dispatch = useDispatch();
   const db = firebase.firestore();
 
@@ -34,7 +35,7 @@ export default function AuthDetails({ setDetailsPage, authPage }) {
         db.collection("user").doc(firebase.auth().currentUser.uid).set({
           email: email,
           emailVerified: firebase.auth().currentUser.emailVerified,
-          displayName: firebase.auth().currentUser.displayName,
+          displayName: displayName,
         });
       })
       .catch(() => {
@@ -47,6 +48,13 @@ export default function AuthDetails({ setDetailsPage, authPage }) {
       <TouchableOpacity onPress={() => setDetailsPage(false)}>
         <Feather name="arrow-left" size={24} color="black" />
       </TouchableOpacity>
+      {authPage == 1 ? (
+        <TextInput
+          onChangeText={(text) => setDisplayName(text)}
+          placeholder="Display Name"
+          style={detailStyle.textinput}
+        />
+      ) : null}
       <TextInput
         onChangeText={(text) => setEmail(text)}
         placeholder="Email"

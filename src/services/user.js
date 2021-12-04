@@ -30,12 +30,11 @@ export const saveUserField = (field, value) =>
       .catch(() => reject());
   });
 
-export const queryUsersByEmail = (email) => {
-  if (email === "") {
-    resolve([]);
-  }
-
+export const queryUsersByEmail = (email) =>
   new Promise((resolve, reject) => {
+    if (email === "") {
+      resolve([]);
+    }
     firebase
       .firestore()
       .collection("user")
@@ -54,4 +53,3 @@ export const queryUsersByEmail = (email) => {
       })
       .catch(() => reject());
   });
-};
